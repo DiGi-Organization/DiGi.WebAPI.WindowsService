@@ -59,7 +59,7 @@ The MVC JSON serializer options to configure\.
 
 Applies the host's schema and parameter naming conventions to the Swagger generator: camelCase query parameters,
 the schema filter that shapes every payload schema, the integer values on the description of every enum
-parameter, and the removal of the enum components that only DiGi payloads used \(ZiolkowskiJakub/DiGi\.WebAPI\.WindowsService\#6\)\.
+parameter, and the removal of the enum components that only DiGi payloads used \(DiGi\-Organization/DiGi\.WebAPI\.WindowsService\#6\)\.
 
 Kept apart from the document registration in `Program` so that tests generate schemas through exactly the configuration the host serves.
 
@@ -135,7 +135,7 @@ A task that represents the asynchronous operation\. The task result is [true](ht
 
 Removes every enum component that nothing in the document references\.
 
-A DiGi payload member declares its enum inline ([OpenApiSchema\(this Type, string, bool\)](DiGi.WebAPI.WindowsService.md#DiGi.WebAPI.WindowsService.Create.OpenApiSchema(thisSystem.Type,string,bool) 'DiGi\.WebAPI\.WindowsService\.Create\.OpenApiSchema\(this System\.Type, string, bool\)')), but generating the member's schema still registers the shared component, which lists member names. An enum used only by DiGi payloads would therefore stay in the document unreferenced, advertising the string form its payloads do not carry; an enum referenced by a query parameter or an MVC payload is kept. Only enum components are removed - an unreferenced object component is left alone. See ZiolkowskiJakub/DiGi.WebAPI.WindowsService#6.
+A DiGi payload member declares its enum inline ([OpenApiSchema\(this Type, string, bool\)](DiGi.WebAPI.WindowsService.md#DiGi.WebAPI.WindowsService.Create.OpenApiSchema(thisSystem.Type,string,bool) 'DiGi\.WebAPI\.WindowsService\.Create\.OpenApiSchema\(this System\.Type, string, bool\)')), but generating the member's schema still registers the shared component, which lists member names. An enum used only by DiGi payloads would therefore stay in the document unreferenced, advertising the string form its payloads do not carry; an enum referenced by a query parameter or an MVC payload is kept. Only enum components are removed - an unreferenced object component is left alone. See DiGi-Organization/DiGi.WebAPI.WindowsService#6.
 
 The host registers it in [ConfigureSchemaGeneration\(this SwaggerGenOptions\)](DiGi.WebAPI.WindowsService.Modify.md#DiGi.WebAPI.WindowsService.Modify.Modify.ConfigureSchemaGeneration(thisSwashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions) 'DiGi\.WebAPI\.WindowsService\.Modify\.Modify\.ConfigureSchemaGeneration\(this Swashbuckle\.AspNetCore\.SwaggerGen\.SwaggerGenOptions\)'), ahead of any `IWebAPIDocumentFilter` an extension brings: such a filter adding a reference to an enum component would find it removed. No loaded extension has one (2026-10-01).
 
@@ -156,7 +156,7 @@ The document to clean up\.
 
 Appends the integer values of the enum to the description of every operation parameter typed by an enum, and advises sending the integer\.
 
-The parameter keeps its schema - a reference to the shared component listing the member names - because that is accurate for binding: ASP.NET binds the member name and the integer alike. The integer is the stable half of that contract (`Coding - WebAPI Contracts.md`, "Send enum values as integers"): member names have been renamed (`Subdivison` to `Subdivision`, after which the old spelling is a 400) while the integers never moved. See ZiolkowskiJakub/DiGi.WebAPI.WindowsService#6.
+The parameter keeps its schema - a reference to the shared component listing the member names - because that is accurate for binding: ASP.NET binds the member name and the integer alike. The integer is the stable half of that contract (`Coding - WebAPI Contracts.md`, "Send enum values as integers"): member names have been renamed (`Subdivison` to `Subdivision`, after which the old spelling is a 400) while the integers never moved. See DiGi-Organization/DiGi.WebAPI.WindowsService#6.
 
 Works on the finished operation rather than per parameter because a parameter's own XML description is written by a parameter filter registered after the host's, which would overwrite text appended earlier.
 
@@ -189,7 +189,7 @@ For a type whose JSON is its member contract ([HasMemberWireFormat\(this Type\)]
 
 For any other DiGi type (an interface, an abstract type, a type writing its own JSON): an open schema requiring only `_type`, the discriminator naming the concrete type whose members follow.
 
-An enum member - also the element of a collection or the value of a dictionary - is written as its underlying integer, so it is declared by an inline integer schema ([OpenApiSchema\(this Type, string, bool\)](DiGi.WebAPI.WindowsService.md#DiGi.WebAPI.WindowsService.Create.OpenApiSchema(thisSystem.Type,string,bool) 'DiGi\.WebAPI\.WindowsService\.Create\.OpenApiSchema\(this System\.Type, string, bool\)')) carrying the member's description, the enum's and the name to integer mapping, instead of a reference to the shared enum component, which keeps listing the member names that query parameters bind (ZiolkowskiJakub/DiGi.WebAPI.WindowsService#6).
+An enum member - also the element of a collection or the value of a dictionary - is written as its underlying integer, so it is declared by an inline integer schema ([OpenApiSchema\(this Type, string, bool\)](DiGi.WebAPI.WindowsService.md#DiGi.WebAPI.WindowsService.Create.OpenApiSchema(thisSystem.Type,string,bool) 'DiGi\.WebAPI\.WindowsService\.Create\.OpenApiSchema\(this System\.Type, string, bool\)')) carrying the member's description, the enum's and the name to integer mapping, instead of a reference to the shared enum component, which keeps listing the member names that query parameters bind (DiGi-Organization/DiGi.WebAPI.WindowsService#6).
 
 ```csharp
 public static void UpdateSerializableObjectProperties(this Microsoft.OpenApi.OpenApiSchema? openApiSchema, Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext? schemaFilterContext);

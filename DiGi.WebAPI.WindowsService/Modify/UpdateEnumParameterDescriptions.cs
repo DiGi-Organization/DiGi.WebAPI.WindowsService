@@ -9,7 +9,7 @@ namespace DiGi.WebAPI.WindowsService.Modify
     {
         /// <summary>
         /// Appends the integer values of the enum to the description of every operation parameter typed by an enum, and advises sending the integer.
-        /// <para>The parameter keeps its schema - a reference to the shared component listing the member names - because that is accurate for binding: ASP.NET binds the member name and the integer alike. The integer is the stable half of that contract (<c>Coding - WebAPI Contracts.md</c>, "Send enum values as integers"): member names have been renamed (<c>Subdivison</c> to <c>Subdivision</c>, after which the old spelling is a 400) while the integers never moved. See ZiolkowskiJakub/DiGi.WebAPI.WindowsService#6.</para>
+        /// <para>The parameter keeps its schema - a reference to the shared component listing the member names - because that is accurate for binding: ASP.NET binds the member name and the integer alike. The integer is the stable half of that contract (<c>Coding - WebAPI Contracts.md</c>, "Send enum values as integers"): member names have been renamed (<c>Subdivison</c> to <c>Subdivision</c>, after which the old spelling is a 400) while the integers never moved. See DiGi-Organization/DiGi.WebAPI.WindowsService#6.</para>
         /// <para>Works on the finished operation rather than per parameter because a parameter's own XML description is written by a parameter filter registered after the host's, which would overwrite text appended earlier.</para>
         /// </summary>
         /// <param name="openApiOperation">The operation whose parameters are described.</param>

@@ -24,7 +24,7 @@ The values are listed in numeric order ([EnumMembers\(this Type\)](DiGi.WebAPI.W
 
 A nullable enum gets the `null` type and `null` last among the values: OpenAPI 3.0's `nullable` widens `type` only, so a value list without `null` would still reject the explicit `null` the serializer writes. A `[Flags]` enum lists no values - a combined value is in no member list - and describes its bits instead; an enum without members lists no values either, because an empty list would reject everything.
 
-See ZiolkowskiJakub/DiGi.WebAPI.WindowsService#6: the shared enum component stays the string schema query parameters bind against, so a DiGi payload member declares its enum inline.
+See DiGi-Organization/DiGi.WebAPI.WindowsService#6: the shared enum component stays the string schema query parameters bind against, so a DiGi payload member declares its enum inline.
 
 ```csharp
 public static Microsoft.OpenApi.OpenApiSchema? OpenApiSchema(this System.Type? type, string? description=null, bool nullable=false);

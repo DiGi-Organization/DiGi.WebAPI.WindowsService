@@ -13,7 +13,7 @@ namespace DiGi.WebAPI.WindowsService
         /// Creates the inline schema of an enum as the DiGi serializer writes it: an integer, the member's underlying value.
         /// <para>The values are listed in numeric order (<see cref="Query.EnumMembers"/>), named for code generators in the same order by <c>x-enum-varnames</c> (openapi-generator) and <c>x-enumNames</c> (NSwag), and mapped to the member names in the description. The format is <c>int64</c> for a <c>long</c>, <c>uint</c> or <c>ulong</c> enum, <c>int32</c> otherwise, and left out when a <c>ulong</c> value exceeds <c>int64</c>.</para>
         /// <para>A nullable enum gets the <c>null</c> type and <c>null</c> last among the values: OpenAPI 3.0's <c>nullable</c> widens <c>type</c> only, so a value list without <c>null</c> would still reject the explicit <c>null</c> the serializer writes. A <c>[Flags]</c> enum lists no values - a combined value is in no member list - and describes its bits instead; an enum without members lists no values either, because an empty list would reject everything.</para>
-        /// <para>See ZiolkowskiJakub/DiGi.WebAPI.WindowsService#6: the shared enum component stays the string schema query parameters bind against, so a DiGi payload member declares its enum inline.</para>
+        /// <para>See DiGi-Organization/DiGi.WebAPI.WindowsService#6: the shared enum component stays the string schema query parameters bind against, so a DiGi payload member declares its enum inline.</para>
         /// </summary>
         /// <param name="type">The enum type, or a nullable enum type (which makes the schema nullable).</param>
         /// <param name="description">The description to start with - the member's and the enum's; the wire mapping is appended to it.</param>
