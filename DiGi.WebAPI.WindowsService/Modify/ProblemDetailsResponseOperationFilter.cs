@@ -20,7 +20,7 @@ namespace DiGi.WebAPI.WindowsService.Modify
 
             foreach (var kvp in operation.Responses)
             {
-                var status = kvp.Key;
+                string status = kvp.Key;
                 // Check if status code is three digits and starts with 4 or 5
                 if (status.Length == 3 && char.IsDigit(status[0]) && (status[0] == '4' || status[0] == '5'))
                 {
@@ -32,13 +32,12 @@ namespace DiGi.WebAPI.WindowsService.Modify
                         continue;
                     }
 
-                    if (!response.Content.ContainsKey("application/json"))
+                    if (!response.Content.TryGetValue("application/json", out OpenApiMediaType? mediaType))
                     {
-                        response.Content["application/json"] = new OpenApiMediaType();
+                        mediaType = new OpenApiMediaType();
+                        response.Content["application/json"] = mediaType;
                     }
 
-                    // Set the schema to a reference to the ProblemDetails component
-                    var mediaType = response.Content["application/json"];
                     mediaType.Schema = new OpenApiSchemaReference("ProblemDetails", context.Document);
                 }
             }

@@ -68,7 +68,7 @@ namespace DiGi.WebAPI.WindowsService.Modify
 
                                 Serilog.Modify.Log("Method initialization started : {Name}", methodInfo.Name);
 
-                                var result_Invoke = methodInfo.Invoke(null, [serviceCollection]);
+                                object? result_Invoke = methodInfo.Invoke(null, [serviceCollection]);
 
                                 // If the method is async (returns Task or ValueTask), we must await it
                                 if (result_Invoke is Task task)

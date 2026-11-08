@@ -18,7 +18,7 @@ namespace DiGi.WebAPI.WindowsService
 
             string name = Path.GetFileName(path);
 
-            return name.StartsWith("System.") || name.StartsWith("Microsoft.") || name.StartsWith("mscorlib");
+            return name.StartsWith("System.", StringComparison.CurrentCulture) || name.StartsWith("Microsoft.", StringComparison.CurrentCulture) || name.StartsWith("mscorlib", StringComparison.CurrentCulture);
         }
     }
 }
