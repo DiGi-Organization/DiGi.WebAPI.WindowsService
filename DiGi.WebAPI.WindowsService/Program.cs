@@ -2,7 +2,6 @@ using DiGi.WebAPI.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -122,60 +121,11 @@ namespace DiGi.WebAPI.WindowsService
 
             WebApplication webApplication = webApplicationBuilder.Build();
 
-            ConfigurePipeline(webApplication);
+            webApplication.ConfigurePipeline();
 
             Serilog.Modify.Log("WindowsService initialization ended");
 
             await webApplication.RunAsync();
-        }
-
-        private static void ConfigurePipeline(WebApplication webApplication)
-        {
-            // /swagger/swagger.json is the short address of the full document. Rewritten internally (no redirect)
-            // because Swashbuckle's route template must contain {documentName}.
-            webApplication.UseRewriter(new RewriteOptions().AddRewrite(@"^swagger/swagger\.json$", $"swagger/{Constants.Name.SwaggerDocument_Full}/swagger.json", skipRemainingRules: true));
-
-            webApplication.UseSwagger();
-            Serilog.Modify.Log("Swagger in use");
-
-            if (webApplication.Environment.IsDevelopment())
-            {
-                List<string> documentNames = webApplication.Services.GetRequiredService<IApiDescriptionGroupCollectionProvider>().DocumentNames();
-
-                webApplication.UseSwaggerUI(swaggerUIOptions =>
-                {
-                    swaggerUIOptions.SwaggerEndpoint("/swagger/swagger.json", "Full");
-
-                    foreach (string documentName in documentNames)
-                    {
-                        swaggerUIOptions.SwaggerEndpoint($"/swagger/{documentName}/swagger.json", documentName);
-                    }
-                });
-                Serilog.Modify.Log("Swagger UI in use");
-            }
-
-            webApplication.UseExceptionHandler();
-            webApplication.UseStatusCodePages();
-
-            webApplication.UseHttpsRedirection();
-            webApplication.UseCors(Constants.Name.Policy);
-            webApplication.UseRequestDecompression();
-
-            Microsoft.AspNetCore.Authorization.IAuthorizationService? authService = webApplication.Services.GetService<Microsoft.AspNetCore.Authorization.IAuthorizationService>();
-
-            bool useAuthorization = authService != null;
-
-            if (useAuthorization)
-            {
-                Serilog.Modify.Log("Authorization in use");
-                webApplication.UseAuthorization();
-            }
-            else
-            {
-                Serilog.Modify.Log("Authorization not in use");
-            }
-
-            webApplication.MapControllers();
         }
 
         private static async Task ConfigureServicesAsync(WebApplicationBuilder webApplicationBuilder, List<Type> types_SchemaFilters, List<Type> types_DocumentFilters)
