@@ -53,6 +53,25 @@ public static void ConfigureJsonSerializerOptions(this System.Text.Json.JsonSeri
 
 The MVC JSON serializer options to configure\.
 
+<a name='DiGi.WebAPI.WindowsService.Modify.Modify.ConfigurePipeline(thisMicrosoft.AspNetCore.Builder.WebApplication)'></a>
+
+## Modify\.ConfigurePipeline\(this WebApplication\) Method
+
+Adds the host's request pipeline to the specified web application: the Swagger rewrite and documents, exception and status code pages, HTTPS redirection, CORS, request decompression, authorization when an authorization service is registered, and the controllers\.
+
+Kept outside [Program](DiGi.WebAPI.WindowsService.md#DiGi.WebAPI.WindowsService.Program 'DiGi\.WebAPI\.WindowsService\.Program') so that a fact can run a request through exactly the pipeline the service runs (DiGi-Organization/DiGi.GIS.WebAPI#77).
+
+```csharp
+public static void ConfigurePipeline(this Microsoft.AspNetCore.Builder.WebApplication? webApplication);
+```
+#### Parameters
+
+<a name='DiGi.WebAPI.WindowsService.Modify.Modify.ConfigurePipeline(thisMicrosoft.AspNetCore.Builder.WebApplication).webApplication'></a>
+
+`webApplication` [Microsoft\.AspNetCore\.Builder\.WebApplication](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.webapplication 'Microsoft\.AspNetCore\.Builder\.WebApplication')
+
+The web application whose pipeline is configured\. Nothing is done when it is `null`\.
+
 <a name='DiGi.WebAPI.WindowsService.Modify.Modify.ConfigureSchemaGeneration(thisSwashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)'></a>
 
 ## Modify\.ConfigureSchemaGeneration\(this SwaggerGenOptions\) Method
